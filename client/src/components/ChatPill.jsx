@@ -6,8 +6,8 @@ const ChatPill = ({owner,message}) => {
             <>
             {
                 owner?
-                <div className="flex flex-col my-1 px-4 items-end w-3/5 ml-auto">
-                    <div className="bg-gradient-to-r from-teal-400 to-blue-500  ml-2 px-4 py-2 rounded-xl w-auto">
+                <div className="flex flex-col my-2 px-4 items-end w-3/5 ml-auto">
+                    <div className="bg-gradient-to-r from-blue-400 to-blue-500  ml-2 px-4 py-2 rounded-xl w-auto">
                         <p className="text-sm text-left text-white">
                             {message}
                         </p> 
@@ -15,7 +15,7 @@ const ChatPill = ({owner,message}) => {
                 </div>
                 
                 :
-                <div className="flex flex-col my-1 px-4">
+                <div className="flex flex-col my-2 px-4">
                     <div className="flex w-full px-16 py-2">
                         <h1 className="text-xs text-gray-600">
                             Ryan Tillaman
