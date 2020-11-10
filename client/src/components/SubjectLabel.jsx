@@ -3,7 +3,7 @@ import React from 'react'
 const SubjectLabel = () => {
     return (
         <div className="flex flex-col w-full rounded-xl text-gray-800">
-            <div className="cursor-pointer w-full  flex flex-row  items-center py-2 px-4">  
+            <div className="cursor-pointer w-full  flex flex-row  items-center py-2 px-1">  
                 <svg width="1em" height="0.6em" viewBox="0 0 16 16" class="bi bi-chevron-down text-gray-900 font-bold" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>      
                 </svg>

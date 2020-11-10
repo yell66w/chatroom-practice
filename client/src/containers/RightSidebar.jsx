@@ -1,10 +1,13 @@
 import React from 'react'
 import avatar from '../assets/img/profile.png'
 import chihuahua from '../assets/img/chihuahua.jpg'
+import Scrollbars from 'react-custom-scrollbars'
 const RightSidebar = () => {
     return (
-        <div className="flex flex-wrap flex-col w-1/5 px-4 py-6 shadow-lg text-gray-800 overflow-y-auto">
-            <div className="flex flex-col">
+       
+        <div className="flex flex-wrap flex-col w-1/5 py-6 shadow-lg text-gray-800  overflow-y-auto ">
+             <Scrollbars style={{ width: "100%"}} autoHeightMax>
+            <div className="flex flex-col px-4">
                 <div>
                     <h1 className="font-bold text-xs">ONLINE</h1>
                 </div>
@@ -36,7 +39,7 @@ const RightSidebar = () => {
                   
                 </ul>
             </div>
-            <div className="flex flex-col mt-6">
+            <div className="flex flex-col mt-6 px-4">
                 <div>
                     <h1 className="font-bold text-xs">SHARED PHOTOS</h1>
                 </div>
@@ -100,6 +103,8 @@ const RightSidebar = () => {
 
                 </div>
             </div>
+        </Scrollbars>
+
         </div>
     )
 }

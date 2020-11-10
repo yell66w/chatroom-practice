@@ -5,7 +5,7 @@ import SubjectSideContainer from './SubjectSideContainer'
 
 const MainContainer = () => {
     return (
-        <div className="flex h-screen">
+        <div className="flex flex-1 overflow-y-hidden">
             <SubjectSideContainer />
             <ChatContainer />
             <RightSidebar />
