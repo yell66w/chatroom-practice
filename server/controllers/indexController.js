@@ -12,7 +12,7 @@ mongoose.connect(uri, {
 //Create schema - like a blueprint
 let login_user_schema = new mongoose.Schema({
 	username: String,
-	password:String
+	password: String
 });
 // no protection
 app.get('/', (req, res) => {
@@ -53,42 +53,39 @@ app.post('/posts', verifyToken, (req, res) => {
   })
 })
 //login and getting api token 
-app.post('/login', urlencodedParser , (req, res) => {
-  //verify auth
-  login_user.find({username:req.body.username, password:req.body.password}, function(err, data){
+app.post('/login', urlencodedParser , async (req, res) => {
+    const {username,password} = req.body //ez refactor
+    //verify auth
+    await login_user.find({username,password}, function(err, data){
       if (err) throw err;
-      if (req.body.username == 'undefined' || req.body.username.password =='undefined') {
+      if (username == 'undefined' || password =='undefined') {
         res.json({
           message: 'no data sent'
         })
       }
-
       if (data.length > 0 ) {
           //login true
           const user = {
-              username: req.body.username,
-              password : req.body.password
+              username,
+              password
           }
           //create token 
-
-          //linagyan ko ng trycatch kasi nagcracrash
-          try {
-            jwt.sign({user}, secretkey, { expiresIn: '1d' }, (err, token) => {
+          jwt.sign({user}, secretkey, { expiresIn: '1d' }, (err, token) => {
               res.json({
                   token
               })
           })
-          } catch (error) {
-            console.error(error.message)
-          }
-          
       } else {
           //login false
           res.json({
               message: 'username / password dont match'
           })
       }
-  })
+    })
+ 
+  
+
+
 })
 // FORMAT OF TOKEN
 // Authorization: Bearer <access_token>
