@@ -68,11 +68,18 @@ app.post('/login', urlencodedParser , (req, res) => {
               password : req.body.username.password
           }
           //create token 
-          jwt.sign({user}, secretkey, { expiresIn: '1d' }, (err, token) => {
+
+          //linagyan ko ng trycatch kasi nagcracrash
+          try {
+            jwt.sign({user}, secretkey, { expiresIn: '1d' }, (err, token) => {
               res.json({
                   token
               })
           })
+          } catch (error) {
+            console.error(error.message)
+          }
+          
       } else {
           //login false
           res.json({
