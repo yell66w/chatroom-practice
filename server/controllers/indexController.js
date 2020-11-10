@@ -18,15 +18,17 @@ let login_user_schema = new mongoose.Schema({
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-app.get('/register', (req, res) => {
-  login_user.find({username:req.query.username}, function(err, data){
+app.post('/register', urlencodedParser , (req, res) => {
+  login_user.find({username:req.body.username}, function(err, data){
     if (err) throw err
     if (data.length > 0 ) {
       res.json({
-        message: 'usersname  existing'
+        message: 'usersname  existing',
+        username:req.body.username,
+        password: req.body.password
       })
     } else {
-      let login_User = new login_user({username: req.query.username , password: req.query.password }).save(function(err,data) {
+      let login_User = new login_user({username:req.body.username , password: req.body.password }).save(function(err,data) {
         if (err) throw err
         res.json({
           message: 'registrarion successfull'
@@ -65,7 +67,7 @@ app.post('/login', urlencodedParser , (req, res) => {
           //login true
           const user = {
               username: req.body.username,
-              password : req.body.username.password
+              password : req.body.password
           }
           //create token 
           jwt.sign({user}, secretkey, { expiresIn: '1d' }, (err, token) => {
