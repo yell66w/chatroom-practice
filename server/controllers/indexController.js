@@ -54,7 +54,13 @@ app.post('/posts', verifyToken, (req, res) => {
 app.post('/login', urlencodedParser , (req, res) => {
   //verify auth
   login_user.find({username:req.body.username, password:req.body.password}, function(err, data){
-      if (err) throw err
+      if (err) throw err;
+      if (req.body.username == 'undefined' || req.body.username.password =='undefined') {
+        res.json({
+          message: 'no data sent'
+        })
+      }
+
       if (data.length > 0 ) {
           //login true
           const user = {
