@@ -22,7 +22,11 @@ module.exports = {
 
       black: '#000',
       white: '#fff',
-
+      dash:{
+        100:"53A5DD",
+        200:"53A5DD",
+        300:"5EAFE6"
+      },
       gray: {
         100: '#f7fafc',
         200: '#edf2f7',
@@ -154,6 +158,7 @@ module.exports = {
       '48': '12rem',
       '56': '14rem',
       '64': '16rem',
+      '100vh': '100vh',
     },
     backgroundColor: theme => theme('colors'),
     backgroundImage: {

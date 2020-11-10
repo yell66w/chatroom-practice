@@ -1,10 +1,13 @@
 import React from 'react'
 import avatar from '../assets/img/profile.png'
 import chihuahua from '../assets/img/chihuahua.jpg'
+import Scrollbars from 'react-custom-scrollbars'
 const RightSidebar = () => {
     return (
-        <div className="flex flex-wrap flex-col w-1/5 px-4 py-6 shadow-lg text-gray-800 overflow-y-auto">
-            <div className="flex flex-col">
+       
+        <div className="flex flex-wrap flex-col w-1/6  shadow-lg text-gray-800  overflow-y-auto ">
+             <Scrollbars style={{ width: "100%"}} autoHeightMax>
+            <div className="flex flex-col px-4 pt-6">
                 <div>
                     <h1 className="font-bold text-xs">ONLINE</h1>
                 </div>
@@ -36,17 +39,17 @@ const RightSidebar = () => {
                   
                 </ul>
             </div>
-            <div className="flex flex-col mt-6">
+            <div className="flex flex-col mt-6 px-4 pb-6">
                 <div>
                     <h1 className="font-bold text-xs">SHARED PHOTOS</h1>
                 </div>
                 <div className="mt-3 flex flex-row flex-wrap">
-                    <img src={chihuahua} className="w-20 h-20 object-cover mx-1  my-1 rounded-xl" alt=""/>
-                    <img src={chihuahua} className="w-20 h-20 object-cover mx-1  my-1 rounded-xl" alt=""/>
-                    <img src={chihuahua} className="w-20 h-20 object-cover mx-1  my-1 rounded-xl" alt=""/>
-                    <img src={chihuahua} className="w-20 h-20 object-cover mx-1  my-1 rounded-xl" alt=""/>
-                    <img src={chihuahua} className="w-20 h-20 object-cover mx-1  my-1 rounded-xl" alt=""/>
-                    <img src={chihuahua} className="w-20 h-20 object-cover mx-1  my-1 rounded-xl" alt=""/>
+                    <img src={chihuahua} className="w-16 h-16 object-cover mx-1  my-1 rounded-xl" alt=""/>
+                    <img src={chihuahua} className="w-16 h-16 object-cover mx-1  my-1 rounded-xl" alt=""/>
+                    <img src={chihuahua} className="w-16 h-16 object-cover mx-1  my-1 rounded-xl" alt=""/>
+                    <img src={chihuahua} className="w-16 h-16 object-cover mx-1  my-1 rounded-xl" alt=""/>
+                    <img src={chihuahua} className="w-16 h-16 object-cover mx-1  my-1 rounded-xl" alt=""/>
+                    <img src={chihuahua} className="w-16 h-16 object-cover mx-1  my-1 rounded-xl" alt=""/>
 
                 </div>
                 <div className="mt-6">
@@ -100,6 +103,8 @@ const RightSidebar = () => {
 
                 </div>
             </div>
+        </Scrollbars>
+
         </div>
     )
 }
