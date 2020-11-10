@@ -7,7 +7,11 @@ const secretkey = 'chihuahua'
 const port = 4000
 //fire controllers
 severController(app,jwt, mongoose , secretkey)
+<<<<<<< Updated upstream
 
+=======
+console.log('sss')
+>>>>>>> Stashed changes
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
