@@ -1,7 +1,6 @@
 const bodyParser = require('body-parser')
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-
 module.exports = function(app, jwt , mongoose ,secretkey) {
 //sever connection
 const uri = 'mongodb+srv://chihuahua:ray-66100@cluster0.97qep.mongodb.net/chihuahua?retryWrites=true&w=majority'
@@ -18,6 +17,17 @@ let login_user_schema = new mongoose.Schema({
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
+app.post('/profile', verifyToken, (req, res) => {  
+  jwt.verify(req.token, secretkey, (err, authData) => {
+      if(err) {
+          res.sendStatus(403)
+      } else {
+          res.json({
+            username : authData.user.username
+          })
+      }
+  })
+})
 app.post('/register', urlencodedParser , (req, res) => {
   login_user.find({username:req.body.username}, function(err, data){
     if (err) throw err
@@ -30,6 +40,7 @@ app.post('/register', urlencodedParser , (req, res) => {
     } else {
       let login_User = new login_user({username:req.body.username , password: req.body.password }).save(function(err,data) {
         if (err) throw err
+
         res.json({
           message: 'registrarion successfull'
         })
