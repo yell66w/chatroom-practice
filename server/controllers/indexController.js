@@ -18,7 +18,7 @@ let login_user_schema = new mongoose.Schema({
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-app.post('/profile', verifyToken, (req, res) => {  
+app.get('/profile', verifyToken, (req, res) => {  
   jwt.verify(req.token, secretkey, (err, authData) => {
       if(err) {
           res.sendStatus(403)
