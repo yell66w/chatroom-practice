@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+
 module.exports = function(app, jwt , mongoose ,secretkey) {
 //sever connection
 const uri = 'mongodb+srv://chihuahua:ray-66100@cluster0.97qep.mongodb.net/chihuahua?retryWrites=true&w=majority'
