@@ -1,6 +1,5 @@
-const bodyParser = require('body-parser')
-let urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+const bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 module.exports = function(app, jwt , mongoose ,secretkey) {
 //sever connection
@@ -42,92 +41,90 @@ app.post('/register', urlencodedParser , (req, res) => {
       let login_User = new login_user({username:req.body.username , password: req.body.password }).save(function(err,data) {
         if (err) throw err
 
+
         res.json({
-          message: 'registrarion successfull'
-        })
-      }) 
-    }
-  })
-  
-})
-//with protection
-let login_user = mongoose.model('users',login_user_schema)
-app.post('/posts', verifyToken, (req, res) => {  
-  jwt.verify(req.token, secretkey, (err, authData) => {
-      if(err) {
-          res.sendStatus(403)
+          message: "username already exists",
+          isRegistered: false,
+        });
       } else {
+        new login_user({
+          username,
+          password,
+        }).save(function (err) {
+          if (err) throw err;
           res.json({
-          message: 'Post created...',
-          authData
-          })
+            message: "registration successfull",
+            isRegistered: true,
+          });
+        });
       }
-  })
-})
-//login and getting api token 
-app.post('/login', urlencodedParser , async (req, res) => {
-    const {username,password} = req.body //ez refactor
+    });
+  });
+  //with protection
+  let login_user = mongoose.model("users", login_user_schema);
+  app.post("/posts", verifyToken, (req, res) => {
+    jwt.verify(req.token, secretkey, (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+      } else {
+        res.json({
+          message: "Post created...",
+          authData,
+        });
+      }
+    });
+  });
+  //login and getting api token
+  app.post("/login", urlencodedParser, async (req, res) => {
+    const { username, password } = req.body; //ez refactor
     //verify auth
-    await login_user.find({username,password}, function(err, data){
+    await login_user.find({ username, password }, function (err, data) {
       if (err) throw err;
-      if (username == 'undefined' || password =='undefined') {
+      if (username == "undefined" || password == "undefined") {
         res.json({
-          message: 'no data sent'
-        })
+          message: "no data sent",
+        });
       }
-      if (data.length > 0 ) {
-          //login true
-          const user = {
-              username,
-              password
-          }
-          //create token 
-          jwt.sign({user}, secretkey, { expiresIn: '1d' }, (err, token) => {
-              res.json({
-                  token
-              })
-          })
-      } else {
-          //login false
+      if (data.length > 0) {
+        //login true
+        const user = {
+          username,
+          password,
+        };
+        //create token
+        jwt.sign({ user }, secretkey, { expiresIn: "1d" }, (err, token) => {
           res.json({
-              message: 'username / password dont match'
-          })
+            token,
+          });
+        });
+      } else {
+        //login false
+        res.json({
+          message: "username / password dont match",
+        });
       }
-    })
- 
-  
+    });
+  });
+  // FORMAT OF TOKEN
+  // Authorization: Bearer <access_token>
 
-
-})
-// FORMAT OF TOKEN
-// Authorization: Bearer <access_token>
-
-// Verify Token
-function verifyToken(req, res, next) {
-  // Get auth header value
-  const bearerHeader = req.headers['authorization']
-  // Check if bearer is undefined
-  if(typeof bearerHeader !== 'undefined') {
+  // Verify Token
+  function verifyToken(req, res, next) {
+    // Get auth header value
+    const bearerHeader = req.headers["authorization"];
+    // Check if bearer is undefined
+    if (typeof bearerHeader !== "undefined") {
       // Split at the space
-      const bearer = bearerHeader.split(' ');
+      const bearer = bearerHeader.split(" ");
       // Get token from array
       const bearerToken = bearer[1];
       // Set the token
       req.token = bearerToken;
       // Next middleware
       next();
-  } else {
+    } else {
       // Forbidden
       res.sendStatus(403);
+    }
   }
-
-}
-
-
-
-
-
-
-
-
-}
+};
