@@ -15,3 +15,21 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 // this
+const io = require('socket.io')(3000)
+io.on('connection', socket => {
+  // talking to another person
+  socket.on('chatting-other',( username , otherName ,message) => {
+    socket.in(otherName).emit({
+      sender: username,
+      message: message
+    })
+  })
+  let group = { group: 'dummygroup' }
+  //group chat
+  socket.on('chatting-to-group',( username , groupName , message) => {
+    socket.in(groupName).emit({
+      sender: username,
+      message: message
+    })
+  })
+})
