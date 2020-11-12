@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { API } from "../api/api";
 import background from "../assets/img/hack.png";
@@ -19,7 +19,6 @@ const Toast = Swal.mixin({
 const Login = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const socketRef = useRef();
   const loginSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -31,7 +30,6 @@ const Login = ({ setIsAuthenticated }) => {
           icon: "success",
           title: "Signed in successfully",
         });
-        socketRef.current.emit("new-user", username);
       } else {
         setIsAuthenticated(false);
         Toast.fire({

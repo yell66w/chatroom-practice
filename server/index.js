@@ -21,6 +21,7 @@ io.on("connection", (socket) => {
   socket.on("new-user", (name) => {
     users[socket.id] = name;
     socket.broadcast.emit("user-connected", name);
+    console.log(name);
   });
   // talking to another person
   socket.on("send message", (body) => {
