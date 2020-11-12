@@ -15,10 +15,9 @@ const ChatContainer = () => {
     socketRef.current = io.connect("http://localhost:4000/", {
       transports: ["websocket", "polling", "flashsocket"],
     });
-    socketRef.current.on("socID", (id) => {
+    socketRef.current.on("socID", async (id) => {
       setSocId(id);
     });
-
     socketRef.current.on("message", (message) => {
       console.log("here");
       receivedMessage(message);
@@ -34,6 +33,7 @@ const ChatContainer = () => {
       body: message,
       id: socId,
     };
+
     setMessage("");
     socketRef.current.emit("send message", messageObj);
   };
