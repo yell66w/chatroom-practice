@@ -12,6 +12,7 @@ const ChatContainer = () => {
   const socketRef = useRef();
 
   useEffect(() => {
+    const ac = new AbortController();
     socketRef.current = io.connect("http://localhost:4000/", {
       transports: ["websocket", "polling", "flashsocket"],
     });
@@ -22,6 +23,8 @@ const ChatContainer = () => {
       console.log("here");
       receivedMessage(message);
     });
+    socketRef.current.emit("new-user", "ryan");
+    return () => ac.abort();
   }, []);
 
   const receivedMessage = (message) => {
@@ -49,7 +52,7 @@ const ChatContainer = () => {
             if (message.id === socId) {
               return (
                 <ChatPill
-                  key={message.id}
+                  key={message.id + index}
                   owner={true}
                   message={message.body}
                 />
@@ -57,7 +60,7 @@ const ChatContainer = () => {
             } else
               return (
                 <ChatPill
-                  key={message.id}
+                  key={message.id + index}
                   owner={false}
                   message={message.body}
                 />
