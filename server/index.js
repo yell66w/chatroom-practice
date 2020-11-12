@@ -12,14 +12,22 @@ const server = http.createServer(app);
 //fire controllers
 app.use(bodyParser.json()); //nangalimtan nim
 app.use(cors()); //FOR CROSS-ORIGIN
-const users = {};
+const users = [];
 severController(app, jwt, mongoose, secretkey, users);
 const io = require("socket.io")(server);
 // this
 io.on("connection", (socket) => {
   socket.emit("socID", socket.id);
   socket.on("new-user", (name) => {
-    users[socket.id] = name;
+    //users[socket.id] = name;
+    if(users.some(users => users.username === name)){
+
+    }else{
+      users.push({
+        username: name,
+        socketId: socket.id
+      })
+    }
     socket.broadcast.emit("user-connected", name, users);
     console.log(users);
   });
