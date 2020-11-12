@@ -10,6 +10,7 @@ import ChatApp from "./containers/ChatApp";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
 import MainContainer from "./containers/MainContainer";
+
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
